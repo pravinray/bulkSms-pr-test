@@ -16,9 +16,14 @@
 
 */
 import React from "react";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import events from "./events";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
+
+const localizer = momentLocalizer(moment);
 
 function Typography() {
   return (
@@ -27,7 +32,18 @@ function Typography() {
         <Row>
           <Col md="12">
             <Card>
-              <CardHeader className="mb-5">
+              <div>
+                <Calendar
+                  step={60}
+                  localizer={localizer}
+                  events={events}
+                  startAccessor="start"
+                  endAccessor="end"
+                  style={{ height: 500 }}
+                />
+              </div>
+
+              {/* <CardHeader className="mb-5">
                 <h5 className="card-category">Black Table Heading</h5>
                 <CardTitle tag="h3">
                   Created using Poppins Font Family
@@ -202,7 +218,7 @@ function Typography() {
                     2. #Here is another line of code
                   </pre>
                 </div>
-              </CardBody>
+              </CardBody> */}
             </Card>
           </Col>
         </Row>
