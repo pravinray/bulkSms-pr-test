@@ -19,11 +19,28 @@ import React from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import events from "./events";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+// import "react-big-calendar/lib/addons/dragAndDrop/styles.less";
+// import "./addons/dragAndDrop/styles.less";
+// import "react-big-calendar/lib/addons/dragAndDrop/styles";
+// import "react-big-calendar/lib/addons/dragAndDrop/styles";
 
 // reactstrap components
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
 
 const localizer = momentLocalizer(moment);
+const event = [
+  {
+    title: "Meeting",
+    start: new Date(2024, 4, 13),
+    end: new Date(2024, 4, 13),
+  },
+  {
+    title: "Coffee breaksss",
+    start: new Date(2024, 5, 12, 15, 45),
+    end: new Date(2024, 5, 12, 16, 30),
+  },
+];
 
 function Typography() {
   return (
@@ -36,10 +53,10 @@ function Typography() {
                 <Calendar
                   step={60}
                   localizer={localizer}
-                  events={events}
+                  events={event}
                   startAccessor="start"
                   endAccessor="end"
-                  style={{ height: 500 }}
+                  style={{ height: 500, color: "white" }}
                 />
               </div>
 
