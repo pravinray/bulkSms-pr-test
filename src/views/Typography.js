@@ -15,13 +15,24 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import PropTypes from "prop-types";
 import events from "./events";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
+
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import CustomCalender from "components/CustomCalender/CustomCalender";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import * as XLXS from "xlsx";
+
 const now = new Date();
 
 // import "react-big-calendar/lib/addons/dragAndDrop/styles.less";
@@ -246,14 +257,35 @@ const event = [
 
 function Typography({}) {
   const [myEvents, setEvents] = useState(event);
+  const [data, setData] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const [item, setitem] = useState();
+
+  useEffect(() => {
+    const arrayData = data?.map((item) => Object.values(item));
+    const singleArray = arrayData.flat();
+
+    console.log("singleArray", singleArray);
+    const regex = /^(\+[1-9]{1}[0-9]{3,14})?([0-9]{9,14})$/;
+
+    const number = singleArray.filter((item) => regex.test(parseInt(item)));
+    setitem(number);
+    console.log("numberrrr", number);
+  }, [data]);
+
   const handleSelectEvent = useCallback(
     (event) => window.alert(event.title),
     []
   );
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const handleSelectSlot = useCallback(
     ({ start, end }) => {
-      const title = window.prompt("New Event name");
+      const title = setShow(true);
+      setShow(true);
       if (title) {
         setEvents((prev) => [...prev, { start, end, title }]);
       }
@@ -268,6 +300,20 @@ function Typography({}) {
     }),
     []
   );
+
+  const handleFileUpload = (e) => {
+    const reader = new FileReader();
+    reader.readAsBinaryString(e.target.files[0]);
+    reader.onload = (e) => {
+      const data = e.target.result;
+      const workbook = XLXS.read(data, { type: "binary" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const parsedData = XLXS.utils.sheet_to_json(sheet);
+      console.log("parsedData :: ", parsedData);
+      setData(() => parsedData);
+    };
+  };
 
   return (
     <>
@@ -292,6 +338,58 @@ function Typography({}) {
                 />
               </div>
 
+              <Modal show={show} onHide={handleClose}>
+                {/* <Modal.Header closeButton>
+                  <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header> */}
+                <Modal.Body>
+                  <input
+                    type="file"
+                    accept=".xlsx, .xls"
+                    onChange={handleFileUpload}
+                  />
+
+                  <Form>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label style={{ color: "white" }}>
+                        Email address
+                      </Form.Label>
+                      <Form.Control
+                        type="email"
+                        key={item}
+                        placeholder="name@example.com"
+                        defaultValue={item}
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlTextarea1"
+                    >
+                      <Form.Label style={{ color: "white" }}>
+                        Example textarea
+                      </Form.Label>
+                      <Form.Control as="textarea" rows={3} />
+                    </Form.Group>
+                  </Form>
+                  <div style={{ display: "flex" }}>
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                    />
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
               {/* <CardHeader className="mb-5">
                 <h5 className="card-category">Black Table Heading</h5>
                 <CardTitle tag="h3">

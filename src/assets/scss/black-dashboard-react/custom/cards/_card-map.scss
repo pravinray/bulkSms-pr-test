@@ -1,3 +1,33 @@
 .map {
   height: 500px;
 }
+
+.modal-dialog {
+  .modal-content {
+    background-color: #525f7f !important;
+  }
+}
+
+.mb-3 {
+  .form-control {
+    border-color: aliceblue;
+  }
+  ::placeholder {
+    color: aliceblue;
+  }
+}
+
+.rbc-btn-group {
+  button {
+    color: white;
+  }
+}
+
+.react-datepicker-wrapper {
+  .react-datepicker__input-container {
+    input {
+      background-color: #525f7f !important;
+      color: white !important;
+    }
+  }
+}
