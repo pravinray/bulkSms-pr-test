@@ -8,14 +8,24 @@
   }
 }
 
-.mb-3 {
+.col-md-10 {
   .form-control {
     border-color: aliceblue;
+    padding: 5px !important;
   }
   ::placeholder {
     color: aliceblue;
   }
+  // .form-label {
+  //   color: aliceblue;
+  // }
 }
+
+// .col-md-10 {
+//   .form-control {
+//     padding: 5;
+//   }
+// }
 
 .rbc-btn-group {
   button {

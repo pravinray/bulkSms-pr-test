@@ -31,7 +31,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import InputGroup from "react-bootstrap/InputGroup";
 import * as XLXS from "xlsx";
+import * as formik from "formik";
+import * as yup from "yup";
 
 const now = new Date();
 
@@ -315,6 +318,23 @@ function Typography({}) {
     };
   };
 
+  const handleSubmit = (data) => {
+    console.log("helloooo", data);
+    setShow(true);
+  };
+
+  const { Formik } = formik;
+
+  // const schema = yup.object().shape({
+  //   firstN: yup.string().required(),
+  //   lastName: yup.string().required(),
+  //   username: yup.string().required(),
+  //   city: yup.string().required(),
+  //   state: yup.string().required(),
+  //   zip: yup.string().required(),
+  //   terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
+  // });
+
   return (
     <>
       <div className="content">
@@ -338,10 +358,24 @@ function Typography({}) {
                 />
               </div>
 
-              <Modal show={show} onHide={handleClose}>
-                {/* <Modal.Header closeButton>
-                  <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header> */}
+              <Modal show={show}>
+                {/* <Button
+                  variant="secondary"
+                  onClick={handleClose}
+                  style={{ margin: "20px" }}
+                >
+                  Close
+                </Button> */}
+                <Modal.Header>
+                  <div onClick={handleClose}>
+                    <div>
+                      <i
+                        style={{ color: "white" }}
+                        className="tim-icons icon-simple-remove"
+                      />
+                    </div>
+                  </div>
+                </Modal.Header>
                 <Modal.Body>
                   <input
                     type="file"
@@ -349,7 +383,91 @@ function Typography({}) {
                     onChange={handleFileUpload}
                   />
 
-                  <Form>
+                  <Formik
+                    // validationSchema={schema}
+                    onSubmit={(data) => console.log("dfgjdfg", data)}
+                    initialValues={{
+                      number: "",
+                      message: "",
+                    }}
+                  >
+                    {({
+                      handleSubmit,
+                      handleChange,
+                      values,
+                      touched,
+                      errors,
+                    }) => (
+                      <Form noValidate onSubmit={handleSubmit}>
+                        <Row className="">
+                          <Form.Group
+                            as={Col}
+                            md="10"
+                            controlId="validationFormik01"
+                          >
+                            <Form.Label>number</Form.Label>
+
+                            <Form.Control
+                              type="text"
+                              name="number"
+                              key={item}
+                              placeholder="mobile number"
+                              defaultValue={item}
+                              onChange={handleChange}
+                            />
+                            {/* <Form.Control
+                              type="text"
+                              name="firstName"
+                              defaultValue={item}
+                            
+                              isValid={touched.firstName && !errors.firstName}
+                            /> */}
+                          </Form.Group>
+
+                          <Form.Group
+                            as={Col}
+                            md="10"
+                            controlId="validationFormik02"
+                          >
+                            <Form.Label>message</Form.Label>
+                            <Form.Control
+                              name="message"
+                              rows={3}
+                              as="textarea"
+                              placeholder="message"
+                              onChange={handleChange}
+                            />
+                            {/* <Form.Control
+                              type="text"
+                              name="lastName"
+                              value={values.lastName}
+                              onChange={handleChange}
+                              isValid={touched.lastName && !errors.lastName}
+                            /> */}
+                            <div
+                              style={{
+                                marginTop: "20px",
+                                marginBottom: "20px",
+                              }}
+                            >
+                              <DatePicker
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                              />
+                            </div>
+
+                            <Form.Control.Feedback>
+                              Looks good!
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </Row>
+
+                        <Button type="submit">Submit form</Button>
+                      </Form>
+                    )}
+                  </Formik>
+
+                  {/* <Form onSubmit={handleSubmit}>
                     <Form.Group
                       className="mb-3"
                       controlId="exampleForm.ControlInput1"
@@ -358,12 +476,13 @@ function Typography({}) {
                         Email address
                       </Form.Label>
                       <Form.Control
-                        type="email"
+                        type="text"
                         key={item}
                         placeholder="name@example.com"
                         defaultValue={item}
                       />
                     </Form.Group>
+
                     <Form.Group
                       className="mb-3"
                       controlId="exampleForm.ControlTextarea1"
@@ -373,21 +492,25 @@ function Typography({}) {
                       </Form.Label>
                       <Form.Control as="textarea" rows={3} />
                     </Form.Group>
-                  </Form>
-                  <div style={{ display: "flex" }}>
+                  </Form> */}
+                  {/* <div style={{ display: "flex" }}>
                     <DatePicker
                       selected={startDate}
                       onChange={(date) => setStartDate(date)}
                     />
-                  </div>
+                  </div> */}
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
+                  {/* <Button
+                    variant="secondary"
+                    onClick={handleClose}
+                    style={{ margin: "20px" }}
+                  >
                     Close
-                  </Button>
-                  <Button variant="primary" onClick={handleClose}>
+                  </Button> */}
+                  {/* <Button variant="primary" onClick={handleClose}>
                     Save Changes
-                  </Button>
+                  </Button> */}
                 </Modal.Footer>
               </Modal>
               {/* <CardHeader className="mb-5">
