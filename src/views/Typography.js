@@ -264,6 +264,16 @@ function Typography({}) {
   const [startDate, setStartDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [item, setitem] = useState();
+  const [collectData, setCollectData] = useState();
+
+  console.log("startDate", startDate);
+
+  useEffect(() => {
+    if (collectData) {
+      console.log("djdfghdfg", collectData);
+      setShow(false);
+    }
+  }, [collectData]);
 
   useEffect(() => {
     const arrayData = data?.map((item) => Object.values(item));
@@ -284,10 +294,11 @@ function Typography({}) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  let titles = "abc";
   const handleSelectSlot = useCallback(
     ({ start, end }) => {
-      const title = setShow(true);
+      console.log("dfgjdfjghdfj", start, end);
+      const title = "abc";
       setShow(true);
       if (title) {
         setEvents((prev) => [...prev, { start, end, title }]);
@@ -385,7 +396,7 @@ function Typography({}) {
 
                   <Formik
                     // validationSchema={schema}
-                    onSubmit={(data) => console.log("dfgjdfg", data)}
+                    onSubmit={(data) => setCollectData(data)}
                     initialValues={{
                       number: "",
                       message: "",
@@ -451,6 +462,7 @@ function Typography({}) {
                               }}
                             >
                               <DatePicker
+                                // dateFormat="YYYY-MM-DD"
                                 selected={startDate}
                                 onChange={(date) => setStartDate(date)}
                               />
