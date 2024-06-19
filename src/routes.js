@@ -26,14 +26,14 @@ import UserProfile from "views/UserProfile.js";
 import { SignUp } from "views/signup";
 
 var routes = [
-  {
-    path: "/signup",
-    name: "Dashboard",
-    rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-chart-pie-36",
-    component: <SignUp />,
-    layout: "/signup",
-  },
+  // {
+  //   path: "/signup",
+  //   name: "Dashboard",
+  //   rtlName: "لوحة القيادة",
+  //   icon: "tim-icons icon-chart-pie-36",
+  //   component: <SignUp />,
+  //   layout: "/signup",
+  // },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -42,22 +42,22 @@ var routes = [
     component: <Dashboard />,
     layout: "/admin",
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: "tim-icons icon-atom",
-    component: <Icons />,
-    layout: "/admin",
-  },
-  {
-    path: "/map",
-    name: "Map",
-    rtlName: "خرائط",
-    icon: "tim-icons icon-pin",
-    component: <Map />,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/icons",
+  //   name: "Icons",
+  //   rtlName: "الرموز",
+  //   icon: "tim-icons icon-atom",
+  //   component: <Icons />,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/map",
+  //   name: "Map",
+  //   rtlName: "خرائط",
+  //   icon: "tim-icons icon-pin",
+  //   component: <Map />,
+  //   layout: "/admin",
+  // },
   {
     path: "/notifications",
     name: "Notifications",
@@ -90,14 +90,14 @@ var routes = [
   //   component: <Typography />,
   //   layout: "/admin",
   // },
-  {
-    path: "/rtl-support",
-    name: "RTL Support",
-    rtlName: "ار تي ال",
-    icon: "tim-icons icon-world",
-    component: <Rtl />,
-    layout: "/rtl",
-  },
+  // {
+  //   path: "/rtl-support",
+  //   name: "RTL Support",
+  //   rtlName: "ار تي ال",
+  //   icon: "tim-icons icon-world",
+  //   component: <Rtl />,
+  //   layout: "/rtl",
+  // },
 
   {
     path: "/typography",
