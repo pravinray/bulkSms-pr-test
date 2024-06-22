@@ -233,6 +233,14 @@ export const SignUp = () => {
                   number: "",
                   message: "",
                   Username: "",
+                  email: "",
+                  firstName: "",
+                  LastName: "",
+                  address: "",
+                  city: "",
+                  country: "",
+                  zip: "",
+                  aboutMe: "",
                 }}
               >
                 {({ handleSubmit, handleChange, values, touched, errors }) => (
@@ -266,7 +274,12 @@ export const SignUp = () => {
                           <label htmlFor="exampleInputEmail1">
                             Email address
                           </label>
-                          <Input placeholder="mike@email.com" type="email" />
+                          <Input
+                            name="email"
+                            placeholder="mike@email.com"
+                            type="email"
+                            onChange={handleChange}
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -275,9 +288,11 @@ export const SignUp = () => {
                         <FormGroup>
                           <label>First Name</label>
                           <Input
+                            name="firstName"
                             defaultValue="Mike"
                             placeholder="Company"
                             type="text"
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
@@ -285,9 +300,11 @@ export const SignUp = () => {
                         <FormGroup>
                           <label>Last Name</label>
                           <Input
+                            name="LastName"
                             defaultValue="Andrew"
                             placeholder="Last Name"
                             type="text"
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
@@ -297,9 +314,11 @@ export const SignUp = () => {
                         <FormGroup>
                           <label>Address</label>
                           <Input
+                            name="address"
                             defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                             placeholder="Home Address"
                             type="text"
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
@@ -309,9 +328,11 @@ export const SignUp = () => {
                         <FormGroup>
                           <label>City</label>
                           <Input
+                            name="city"
                             defaultValue="Mike"
                             placeholder="City"
                             type="text"
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
@@ -319,16 +340,23 @@ export const SignUp = () => {
                         <FormGroup>
                           <label>Country</label>
                           <Input
+                            name="country"
                             defaultValue="Andrew"
                             placeholder="Country"
                             type="text"
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
                       <Col className="pl-md-1" md="4">
                         <FormGroup>
                           <label>Postal Code</label>
-                          <Input placeholder="ZIP Code" type="number" />
+                          <Input
+                            placeholder="ZIP Code"
+                            name="zip"
+                            type="number"
+                            onChange={handleChange}
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -343,6 +371,8 @@ export const SignUp = () => {
                             placeholder="Here can be your description"
                             rows="4"
                             type="textarea"
+                            name="message"
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
