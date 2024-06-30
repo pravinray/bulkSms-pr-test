@@ -25,20 +25,31 @@ export const SignUp = () => {
   const [signInShow, setSignInShow] = React.useState(false);
   const [otp, setOtp] = React.useState("");
   const [collectData, setCollectData] = useState();
-
-  console.log("collectData", collectData);
+  const [signupData, setSignupData] = useState();
 
   const onFinish = async (values) => {
+    console.log("collectData", collectData);
     const payload = {
-      email: values.username,
-      password: values?.password,
-      mobileNumber: values?.mobileNumber
-        ? `+` +
-          values.mobileNumber.countryCode +
-          `-` +
-          values.mobileNumber.areaCode +
-          values.mobileNumber.phoneNumber
-        : null,
+      // message: collectData?.message,
+      Number: collectData?.Number,
+      email: collectData?.email,
+      firstName: collectData?.firstName,
+      lastName: collectData?.LastName,
+      address: collectData?.address,
+      city: collectData?.city,
+      country: collectData?.country,
+      zip: collectData?.Zip,
+      aboutMe: collectData?.aboutMe,
+
+      // email: values.username,
+      // password: values?.password,
+      // mobileNumber: values?.mobileNumber
+      //   ? `+` +
+      //     values.mobileNumber.countryCode +
+      //     `-` +
+      //     values.mobileNumber.areaCode +
+      //     values.mobileNumber.phoneNumber
+      //   : null,
     };
     console.log("Success:", values, payload);
 
@@ -50,26 +61,33 @@ export const SignUp = () => {
       },
     });
     const result = await response.json();
+    setSignupData(result);
     console.log("********", result);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log("Failed:", errorInfo);
+  // };
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/").then((response) => {
+  //     console.log(
+  //       "helooooo",
+  //       response?.json().then((data) => console.log("dataa", data))
+  //     );
+  //     // console.log("resspnse", response.json().strin);
+  //     // return response.json();
+  //   });
+  //   // .then((data) => {
+  //   //   console.log("dataaaa", data);
+  //   // });
+  // }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/").then((response) => {
-      console.log(
-        "helooooo",
-        response?.json().then((data) => console.log("dataa", data))
-      );
-      // console.log("resspnse", response.json().strin);
-      // return response.json();
-    });
-    // .then((data) => {
-    //   console.log("dataaaa", data);
-    // });
-  }, []);
+    if (collectData) {
+      onFinish();
+    }
+  }, [collectData]);
 
   return (
     // <div className="flex w-[100rem] items-center justify-center h-screen bg-slate-300 w-auto">
@@ -220,7 +238,22 @@ export const SignUp = () => {
 
     <Row className="d-flex  align-items-center justify-content-center  p-5">
       <Col md="8">
-        {signInShow == !true ? (
+        {signupData?.type == "Success" ? (
+          <Card>
+            <CardFooter>
+              <div className="d-flex justify-content-center">
+                <OtpInput
+                  style={{ height: 50, width: 50 }}
+                  value={otp}
+                  onChange={setOtp}
+                  numInputs={6}
+                  renderSeparator={<span>-</span>}
+                  renderInput={(props) => <input {...props} />}
+                />
+              </div>
+            </CardFooter>
+          </Card>
+        ) : (
           <Card>
             <CardHeader>
               <h5 className="title">Edit Profile</h5>
@@ -230,9 +263,8 @@ export const SignUp = () => {
                 // validationSchema={schema}
                 onSubmit={(data) => setCollectData(data)}
                 initialValues={{
-                  number: "",
-                  message: "",
-                  Username: "",
+                  // message: "",
+                  Number: "",
                   email: "",
                   firstName: "",
                   LastName: "",
@@ -259,11 +291,11 @@ export const SignUp = () => {
                       </Col>
                       <Col className="px-md-1" md="3">
                         <FormGroup>
-                          <label>Username</label>
+                          <label>PhoneNumber</label>
                           <Input
-                            name="Username"
-                            defaultValue="michael23"
-                            placeholder="Username"
+                            name="Number"
+                            defaultValue="9824877222"
+                            placeholder="Number"
                             type="text"
                             onChange={handleChange}
                           />
@@ -367,11 +399,11 @@ export const SignUp = () => {
                           <Input
                             cols="80"
                             defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
+                          that two seat Lambo."
                             placeholder="Here can be your description"
                             rows="4"
                             type="textarea"
-                            name="message"
+                            name="aboutMe"
                             onChange={handleChange}
                           />
                         </FormGroup>
@@ -391,7 +423,6 @@ export const SignUp = () => {
             <label>About Me</label>
             <CardFooter></CardFooter>
           </Card>
-        ) : (
           // <Card>
           //   <CardHeader>
           //     <h5 className="title">Sign Up</h5>
@@ -527,20 +558,6 @@ export const SignUp = () => {
           //     </div>
           //   </CardFooter>
           // </Card>
-          <Card>
-            <CardFooter>
-              <div className="d-flex justify-content-center">
-                <OtpInput
-                  style={{ height: 50, width: 50 }}
-                  value={otp}
-                  onChange={setOtp}
-                  numInputs={4}
-                  renderSeparator={<span>-</span>}
-                  renderInput={(props) => <input {...props} />}
-                />
-              </div>
-            </CardFooter>
-          </Card>
         )}
       </Col>
     </Row>
