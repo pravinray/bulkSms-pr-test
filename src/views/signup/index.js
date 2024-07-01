@@ -26,6 +26,9 @@ export const SignUp = () => {
   const [otp, setOtp] = React.useState("");
   const [collectData, setCollectData] = useState();
   const [signupData, setSignupData] = useState();
+  const [showPassword, setShowPassword] = useState(false);
+
+  console.log("otp", otp);
 
   const onFinish = async (values) => {
     console.log("collectData", collectData);
@@ -52,7 +55,6 @@ export const SignUp = () => {
       //   : null,
     };
     console.log("Success:", values, payload);
-
     const response = await fetch("http://localhost:3000/api/signUp", {
       method: "POST",
       body: JSON.stringify(payload),
@@ -82,6 +84,30 @@ export const SignUp = () => {
   //   //   console.log("dataaaa", data);
   //   // });
   // }, []);
+
+  const getData = () => {
+    if (otp == signupData?.otp) {
+      console.log("sbc");
+    }
+  };
+
+  useEffect(() => {
+    if (otp == signupData?.otp) {
+      console.log("hello");
+      setShowPassword(true);
+    }
+    // function debounce(callback, delay) {
+    //   let timer;
+    //   return function () {
+    //     clearTimeout(timer);
+    //     timer = setTimeout(() => {
+    //       console.log("helloo");
+    //       callback();
+    //     }, delay);
+    //   };
+    // }
+    // debounce(getData, 500);
+  }, [otp]);
 
   useEffect(() => {
     if (collectData) {
@@ -238,7 +264,11 @@ export const SignUp = () => {
 
     <Row className="d-flex  align-items-center justify-content-center  p-5">
       <Col md="8">
-        {signupData?.type == "Success" ? (
+        {signupData?.type == "Success" && showPassword == true ? (
+          <div>
+            <div>hello world</div>
+          </div>
+        ) : signupData?.type == "Success" ? (
           <Card>
             <CardFooter>
               <div className="d-flex justify-content-center">
