@@ -266,7 +266,69 @@ export const SignUp = () => {
       <Col md="8">
         {signupData?.type == "Success" && showPassword == true ? (
           <div>
-            <div>hello world</div>
+            <Card>
+              <CardHeader>
+                <h5 className="title">Edit Profile</h5>
+              </CardHeader>
+              <CardBody>
+                <Formik
+                  // validationSchema={schema}
+                  onSubmit={(data) => setCollectData(data)}
+                  initialValues={{
+                    firstName: "",
+                    LastName: "",
+                  }}
+                >
+                  {({
+                    handleSubmit,
+                    handleChange,
+                    values,
+                    touched,
+                    errors,
+                  }) => (
+                    <Form onSubmit={handleSubmit}>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label>New Password</label>
+                            <Input
+                              name="firstName"
+                              defaultValue="Mike"
+                              placeholder="Company"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>Confirm Password</label>
+                            <Input
+                              name="LastName"
+                              defaultValue="Andrew"
+                              placeholder="Last Name"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+
+                      <Button
+                        className="btn-fill"
+                        color="primary"
+                        type="submit"
+                      >
+                        Save
+                      </Button>
+                    </Form>
+                  )}
+                </Formik>
+              </CardBody>
+              <div class="d-flex w-100  justify-content-center"></div>
+
+              <CardFooter></CardFooter>
+            </Card>
           </div>
         ) : signupData?.type == "Success" ? (
           <Card>
