@@ -25,8 +25,10 @@ export const SignUp = () => {
   const [signInShow, setSignInShow] = React.useState(false);
   const [otp, setOtp] = React.useState("");
   const [collectData, setCollectData] = useState();
+  const [collectPassword, setcollectPassword] = useState();
   const [signupData, setSignupData] = useState();
   const [showPassword, setShowPassword] = useState(false);
+  const [statusPassword, setStatusPassword] = useState();
 
   console.log("otp", otp);
 
@@ -67,6 +69,27 @@ export const SignUp = () => {
     console.log("********", result);
   };
 
+  const onsetPassword = async () => {
+    const payload = {
+      password: collectPassword?.password,
+      number: collectData?.Number,
+    };
+
+    console.log("payload", payload);
+    // console.log("Success:", values, payload);
+    const response = await fetch("http://localhost:3000/api/setpassword", {
+      method: "PUT",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    setStatusPassword(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
   // const onFinishFailed = (errorInfo) => {
   //   console.log("Failed:", errorInfo);
   // };
@@ -114,6 +137,12 @@ export const SignUp = () => {
       onFinish();
     }
   }, [collectData]);
+
+  useEffect(() => {
+    if (collectPassword) {
+      onsetPassword();
+    }
+  }, [collectPassword]);
 
   return (
     // <div className="flex w-[100rem] items-center justify-center h-screen bg-slate-300 w-auto">
@@ -264,19 +293,19 @@ export const SignUp = () => {
 
     <Row className="d-flex  align-items-center justify-content-center  p-5">
       <Col md="8">
-        {signupData?.type == "Success" && showPassword == true ? (
+        {statusPassword?.updated == true ? (
           <div>
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h5 className="title">Login</h5>
               </CardHeader>
               <CardBody>
                 <Formik
                   // validationSchema={schema}
-                  onSubmit={(data) => setCollectData(data)}
+                  onSubmit={(data) => setcollectPassword(data)}
                   initialValues={{
-                    firstName: "",
-                    LastName: "",
+                    password: "",
+                    confirmPassword: "",
                   }}
                 >
                   {({
@@ -292,7 +321,7 @@ export const SignUp = () => {
                           <FormGroup>
                             <label>New Password</label>
                             <Input
-                              name="firstName"
+                              name="password"
                               defaultValue="Mike"
                               placeholder="Company"
                               type="text"
@@ -304,7 +333,73 @@ export const SignUp = () => {
                           <FormGroup>
                             <label>Confirm Password</label>
                             <Input
-                              name="LastName"
+                              name="confirmPassword"
+                              defaultValue="Andrew"
+                              placeholder="Last Name"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+
+                      <Button
+                        className="btn-fill"
+                        color="primary"
+                        type="submit"
+                      >
+                        Save
+                      </Button>
+                    </Form>
+                  )}
+                </Formik>
+              </CardBody>
+              <div class="d-flex w-100  justify-content-center"></div>
+
+              <CardFooter></CardFooter>
+            </Card>
+          </div>
+        ) : signupData?.type == "Success" && showPassword == true ? (
+          <div>
+            <Card>
+              <CardHeader>
+                <h5 className="title">Edit Profile</h5>
+              </CardHeader>
+              <CardBody>
+                <Formik
+                  // validationSchema={schema}
+                  onSubmit={(data) => setcollectPassword(data)}
+                  initialValues={{
+                    password: "",
+                    confirmPassword: "",
+                  }}
+                >
+                  {({
+                    handleSubmit,
+                    handleChange,
+                    values,
+                    touched,
+                    errors,
+                  }) => (
+                    <Form onSubmit={handleSubmit}>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label>New Password</label>
+                            <Input
+                              name="password"
+                              defaultValue="Mike"
+                              placeholder="Company"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>Confirm Password</label>
+                            <Input
+                              name="confirmPassword"
                               defaultValue="Andrew"
                               placeholder="Last Name"
                               type="text"
