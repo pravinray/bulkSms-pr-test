@@ -27,10 +27,15 @@ export const SignUp = () => {
   const [collectData, setCollectData] = useState();
   const [collectPassword, setcollectPassword] = useState();
   const [signupData, setSignupData] = useState();
+  console.log("signupData", signupData);
   const [showPassword, setShowPassword] = useState(false);
   const [statusPassword, setStatusPassword] = useState();
+  const [loginData, setLoginData] = useState();
+  const [loginDataSatus, setLoginDataSatus] = useState();
 
-  console.log("otp", otp);
+  console.log("loginDataSatus", loginDataSatus);
+
+  console.log("otp", loginData);
 
   const onFinish = async (values) => {
     console.log("collectData", collectData);
@@ -90,6 +95,29 @@ export const SignUp = () => {
     // setSignupData(result);
     // console.log("********", result);
   };
+
+  const onLogin = async () => {
+    const payload = {
+      Email: loginData?.Email,
+      Password: loginData?.Password,
+    };
+
+    console.log("payload", payload);
+    // console.log("Success:", values, payload);
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
   // const onFinishFailed = (errorInfo) => {
   //   console.log("Failed:", errorInfo);
   // };
@@ -115,22 +143,22 @@ export const SignUp = () => {
   };
 
   useEffect(() => {
+    if (loginDataSatus?.token) {
+    }
+  }, [loginDataSatus]);
+
+  useEffect(() => {
     if (otp == signupData?.otp) {
       console.log("hello");
       setShowPassword(true);
     }
-    // function debounce(callback, delay) {
-    //   let timer;
-    //   return function () {
-    //     clearTimeout(timer);
-    //     timer = setTimeout(() => {
-    //       console.log("helloo");
-    //       callback();
-    //     }, delay);
-    //   };
-    // }
-    // debounce(getData, 500);
   }, [otp]);
+
+  useEffect(() => {
+    if (loginData) {
+      onLogin();
+    }
+  }, [loginData]);
 
   useEffect(() => {
     if (collectData) {
@@ -297,15 +325,15 @@ export const SignUp = () => {
           <div>
             <Card>
               <CardHeader>
-                <h5 className="title">Login</h5>
+                <h5 className="title">Login Page</h5>
               </CardHeader>
               <CardBody>
                 <Formik
                   // validationSchema={schema}
-                  onSubmit={(data) => setcollectPassword(data)}
+                  onSubmit={(data) => setLoginData(data)}
                   initialValues={{
-                    password: "",
-                    confirmPassword: "",
+                    Email: "",
+                    Password: "",
                   }}
                 >
                   {({
@@ -319,11 +347,11 @@ export const SignUp = () => {
                       <Row>
                         <Col className="pr-md-1" md="6">
                           <FormGroup>
-                            <label>New Password</label>
+                            <label>Email</label>
                             <Input
-                              name="password"
+                              name="Email"
                               defaultValue="Mike"
-                              placeholder="Company"
+                              placeholder="Email"
                               type="text"
                               onChange={handleChange}
                             />
@@ -331,11 +359,11 @@ export const SignUp = () => {
                         </Col>
                         <Col className="pl-md-1" md="6">
                           <FormGroup>
-                            <label>Confirm Password</label>
+                            <label>PassWord</label>
                             <Input
-                              name="confirmPassword"
+                              name="Password"
                               defaultValue="Andrew"
-                              placeholder="Last Name"
+                              placeholder="Password"
                               type="text"
                               onChange={handleChange}
                             />
@@ -348,7 +376,7 @@ export const SignUp = () => {
                         color="primary"
                         type="submit"
                       >
-                        Save
+                        Login
                       </Button>
                     </Form>
                   )}
