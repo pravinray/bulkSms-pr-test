@@ -5,6 +5,9 @@ import { useEffect } from "react";
 import { MailOutlined, KeyOutlined } from "@ant-design/icons";
 import PhoneInput from "antd-phone-input";
 import OtpInput from "react-otp-input";
+// import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import { NavLink, Link, useLocation } from "react-router-dom";
 
 import {
   Button,
@@ -22,6 +25,7 @@ import {
 import { Formik } from "formik";
 
 export const SignUp = () => {
+  const navigate = useNavigate();
   const [signInShow, setSignInShow] = React.useState(false);
   const [otp, setOtp] = React.useState("");
   const [collectData, setCollectData] = useState();
@@ -144,6 +148,7 @@ export const SignUp = () => {
 
   useEffect(() => {
     if (loginDataSatus?.token) {
+      navigate("/dashboard");
     }
   }, [loginDataSatus]);
 
