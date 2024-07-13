@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // reactstrap components
 import {
@@ -29,6 +29,29 @@ import {
 } from "reactstrap";
 
 function Tables() {
+  const [Item, setItem] = useState();
+  console.log("itemmm", Item?.data?.[0]);
+
+  const onLogin = async () => {
+    const response = await fetch("http://localhost:3000/smsData", {
+      method: "GET",
+      // body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    setItem(result);
+    // setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
+  useEffect(() => {
+    onLogin();
+  }, []);
+
   return (
     <>
       <div className="content">
@@ -36,7 +59,7 @@ function Tables() {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Simple Table</CardTitle>
+                <CardTitle tag="h4">Simple Tableeee</CardTitle>
               </CardHeader>
               <CardBody>
                 <Table className="tablesorter" responsive>
@@ -50,53 +73,53 @@ function Tables() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-center">$36,738</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-center">$23,789</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-center">$56,142</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Philip Chaney</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
-                      <td className="text-center">$38,735</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-center">$63,542</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$78,615</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Jon Porter</td>
-                      <td>Portugal</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$98,615</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                   </tbody>
                 </Table>
               </CardBody>
             </Card>
           </Col>
-          <Col md="12">
+          {/* <Col md="12">
             <Card className="card-plain">
               <CardHeader>
                 <CardTitle tag="h4">Table on Plain Background</CardTitle>
@@ -159,7 +182,7 @@ function Tables() {
                 </Table>
               </CardBody>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </>
