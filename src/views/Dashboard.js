@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react plugin used to create charts
@@ -55,6 +55,29 @@ function Dashboard(props) {
   const setBgChartData = (name) => {
     setbigChartData(name);
   };
+
+  const [Item, setItem] = useState();
+  console.log("itemmm", Item?.data?.[0]);
+
+  const onLogin = async () => {
+    const response = await fetch("http://localhost:3000/smsData", {
+      method: "GET",
+      // body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    setItem(result);
+    // setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
+  useEffect(() => {
+    onLogin();
+  }, []);
   return (
     <>
       <div className="content">
@@ -139,7 +162,7 @@ function Dashboard(props) {
           </Col>
         </Row>
         <Row>
-          <Col lg="4">
+          {/* <Col lg="4">
             <Card className="card-chart">
               <CardHeader>
                 <h5 className="card-category">Total Shipments</h5>
@@ -156,9 +179,9 @@ function Dashboard(props) {
                 </div>
               </CardBody>
             </Card>
-          </Col>
+          </Col> */}
           <Col lg="4">
-            <Card className="card-chart">
+            {/* <Card className="card-chart">
               <CardHeader>
                 <h5 className="card-category">Daily Sales</h5>
                 <CardTitle tag="h3">
@@ -174,10 +197,10 @@ function Dashboard(props) {
                   />
                 </div>
               </CardBody>
-            </Card>
+            </Card> */}
           </Col>
           <Col lg="4">
-            <Card className="card-chart">
+            {/* <Card className="card-chart">
               <CardHeader>
                 <h5 className="card-category">Completed Tasks</h5>
                 <CardTitle tag="h3">
@@ -192,7 +215,7 @@ function Dashboard(props) {
                   />
                 </div>
               </CardBody>
-            </Card>
+            </Card> */}
           </Col>
         </Row>
         <Row>
@@ -250,9 +273,7 @@ function Dashboard(props) {
                         </td>
                         <td>
                           <p className="title">Update the Documentation</p>
-                          <p className="text-muted">
-                            Dwuamish Head, Seattle, WA 8:47 AM
-                          </p>
+                          <p className="text-muted">{Item?.data?.[0]?.BODY}</p>
                         </td>
                         <td className="td-actions text-right">
                           <Button
@@ -289,12 +310,7 @@ function Dashboard(props) {
                         </td>
                         <td>
                           <p className="title">GDPR Compliance</p>
-                          <p className="text-muted">
-                            The GDPR is a regulation that requires businesses to
-                            protect the personal data and privacy of Europe
-                            citizens for transactions that occur within EU
-                            member states.
-                          </p>
+                          <p className="text-muted">{Item?.data?.[0]?.BODY}</p>
                         </td>
                         <td className="td-actions text-right">
                           <Button
@@ -327,10 +343,7 @@ function Dashboard(props) {
                         </td>
                         <td>
                           <p className="title">Solve the issues</p>
-                          <p className="text-muted">
-                            Fifty percent of all respondents said they would be
-                            more likely to shop at a company
-                          </p>
+                          <p className="text-muted">{Item?.data?.[0]?.BODY}</p>
                         </td>
                         <td className="td-actions text-right">
                           <Button
@@ -344,113 +357,6 @@ function Dashboard(props) {
                           <UncontrolledTooltip
                             delay={0}
                             target="tooltip362404923"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Release v2.0.0</p>
-                          <p className="text-muted">
-                            Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip818217463"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip818217463"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Export the processed files</p>
-                          <p className="text-muted">
-                            The report also shows that consumers will not easily
-                            forgive a company once a breach exposing their
-                            personal data occurs.
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip831835125"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip831835125"
-                            placement="right"
-                          >
-                            Edit Task
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <FormGroup check>
-                            <Label check>
-                              <Input defaultValue="" type="checkbox" />
-                              <span className="form-check-sign">
-                                <span className="check" />
-                              </span>
-                            </Label>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <p className="title">Arival at export process</p>
-                          <p className="text-muted">
-                            Capitol Hill, Seattle, WA 12:34 AM
-                          </p>
-                        </td>
-                        <td className="td-actions text-right">
-                          <Button
-                            color="link"
-                            id="tooltip217595172"
-                            title=""
-                            type="button"
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip217595172"
                             placement="right"
                           >
                             Edit Task
@@ -480,46 +386,28 @@ function Dashboard(props) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-center">$36,738</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-center">$23,789</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-center">$56,142</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                     <tr>
-                      <td>Philip Chaney</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
-                      <td className="text-center">$38,735</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-center">$63,542</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$78,615</td>
-                    </tr>
-                    <tr>
-                      <td>Jon Porter</td>
-                      <td>Portugal</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$98,615</td>
+                      <td>{Item?.data?.[0]?.ToNumber}</td>
+                      <td>{Item?.data?.[0]?.fromNumber}</td>
+                      <td>{Item?.data?.[0]?.status}</td>
+                      <td className="text-center">{Item?.data?.[0]?.BODY}</td>
                     </tr>
                   </tbody>
                 </Table>
