@@ -19,6 +19,7 @@ import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
+import PhoneBook from "views/PhoneBook";
 import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
@@ -66,6 +67,16 @@ var routes = [
     component: <Notifications />,
     layout: "/admin",
   },
+
+  {
+    path: "/note book",
+    name: "note book",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-bell-55",
+    component: <PhoneBook />,
+    layout: "/admin",
+  },
+
   {
     path: "/user-profile",
     name: "User Profile",
