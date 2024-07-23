@@ -35,6 +35,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import * as XLXS from "xlsx";
 import * as formik from "formik";
 import * as yup from "yup";
+// import moment from "moment";
 
 const now = new Date();
 
@@ -265,6 +266,7 @@ function Typography({}) {
   const [show, setShow] = useState(false);
   const [item, setitem] = useState();
   const [collectData, setCollectData] = useState();
+  console.log("collectData", collectData);
 
   console.log("startDate", startDate);
 
@@ -294,11 +296,14 @@ function Typography({}) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  let titles = "abc";
+  let titles = "abcrfgrrtgrtgghghthgghtyyhtyhtyvthtrtrtthth";
   const handleSelectSlot = useCallback(
     ({ start, end }) => {
       console.log("dfgjdfjghdfj", start, end);
-      const title = "abc";
+      const formattedDate = moment(start).format("DD-MM-YYYY");
+      console.log("formattedDate", formattedDate);
+      const title =
+        "abcjnguehtuhte rhuerhtutyeuthuej uerhtu8erytuehtuehu ertje8t8eu4teturhru8thwthlw ";
       setShow(true);
       if (title) {
         setEvents((prev) => [...prev, { start, end, title }]);

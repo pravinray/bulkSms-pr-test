@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect, useState } from "react";
 // react plugin for creating notifications over the dashboard
 import NotificationAlert from "react-notification-alert";
 
@@ -33,6 +33,8 @@ import {
 } from "reactstrap";
 
 function Notifications() {
+  const [listNumber, setlistNumber] = useState();
+  console.log("listNumber", listNumber);
   const notificationAlertRef = React.useRef(null);
   const notify = (place) => {
     var color = Math.floor(Math.random() * 5 + 1);
@@ -73,6 +75,27 @@ function Notifications() {
     };
     notificationAlertRef.current.notificationAlert(options);
   };
+
+  const handleContact = async () => {
+    const response = await fetch("http://localhost:3000/listCountryNumber", {
+      method: "GET",
+      // body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    setlistNumber(result);
+    // setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
+  useEffect(() => {
+    handleContact();
+  }, []);
+
   return (
     <>
       <div className="content">
@@ -90,7 +113,7 @@ function Notifications() {
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                     <span>BUY</span>
                   </div>
                 </Alert>
@@ -98,7 +121,7 @@ function Notifications() {
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                     <span>BUY</span>
                   </div>
                 </Alert>
@@ -106,7 +129,7 @@ function Notifications() {
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                     <span>BUY</span>
                   </div>
                 </Alert>
@@ -131,7 +154,7 @@ function Notifications() {
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
+                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
                     <span>BUY</span>
                   </div>
                 </Alert>
@@ -139,7 +162,7 @@ function Notifications() {
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
+                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
                     <span>BUY</span>
                   </div>
                 </Alert>
@@ -147,7 +170,7 @@ function Notifications() {
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
+                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
                     <span>BUY</span>
                   </div>
                 </Alert>
@@ -155,7 +178,7 @@ function Notifications() {
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
+                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
                     <span>BUY</span>
                   </div>
                 </Alert>

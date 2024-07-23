@@ -16,7 +16,7 @@
 
 */
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 // react plugin for creating notifications over the dashboard
 import NotificationAlert from "react-notification-alert";
 
@@ -42,7 +42,58 @@ import {
 function PhoneBook() {
   const notificationAlertRef = React.useRef(null);
   const [modalSearch, setmodalSearch] = React.useState(false);
-  const [loginData, setLoginData] = React.useState();
+  const [PhoneNumber, setPhoneNumber] = React.useState();
+  const [listNumber, setlistNumber] = React.useState();
+  console.log("listNumber", listNumber);
+
+  const onLogin = async () => {
+    const payload = {
+      Name: PhoneNumber?.Name,
+      PhoneNumber: PhoneNumber?.PhoneNumber,
+    };
+
+    console.log("payload", payload);
+    // console.log("Success:", values, payload);
+    const response = await fetch("http://localhost:3000/phoneNumber", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    // setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
+  const handleContact = async () => {
+    const response = await fetch("http://localhost:3000/listContact", {
+      method: "GET",
+      // body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    setlistNumber(result);
+    // setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
+  useEffect(() => {
+    handleContact();
+  }, []);
+
+  useEffect(() => {
+    if (PhoneNumber) {
+      onLogin();
+    }
+  }, [PhoneNumber]);
+
   const notify = (place) => {
     var color = Math.floor(Math.random() * 5 + 1);
     var type;
@@ -104,10 +155,10 @@ function PhoneBook() {
               <CardBody> */}
             <Formik
               // validationSchema={schema}
-              onSubmit={(data) => setLoginData(data)}
+              onSubmit={(data) => setPhoneNumber(data)}
               initialValues={{
-                Email: "",
-                Password: "",
+                Name: "",
+                PhoneNumber: "",
               }}
             >
               {({ handleSubmit, handleChange, values, touched, errors }) => (
@@ -117,7 +168,7 @@ function PhoneBook() {
                       <FormGroup>
                         <label>Name</label>
                         <Input
-                          name="Email"
+                          name="Name"
                           defaultValue="Mike"
                           placeholder="Name"
                           type="text"
@@ -138,7 +189,7 @@ function PhoneBook() {
                       <FormGroup>
                         <label>PhoneNumber</label>
                         <Input
-                          name="Password"
+                          name="PhoneNumber"
                           defaultValue="Andrew"
                           placeholder="PhoneNumber"
                           type="text"
@@ -157,6 +208,7 @@ function PhoneBook() {
                             alignItems: "center",
                             paddingBottom: "5%",
                           }}
+                          type="submit"
                         >
                           Save
                         </Button>
@@ -204,32 +256,32 @@ function PhoneBook() {
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
                 </Alert>
                 <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
                 </Alert>
                 <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
                 </Alert>
                 <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
-                    <span>+918983483445</span>
-                    <span>BUY</span>
+                    <span>{listNumber?.data?.[0]?.Name}</span>
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
                 </Alert>
               </CardBody>
