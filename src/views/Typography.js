@@ -261,17 +261,24 @@ const event = [
 
 function Typography({}) {
   const [myEvents, setEvents] = useState(event);
+  console.log("myEvents", myEvents);
   const [data, setData] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [item, setitem] = useState();
   const [collectData, setCollectData] = useState();
-  console.log("collectData", collectData);
-
-  console.log("startDate", startDate);
+  const [message, setMessage] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+  console.log("messagess", message);
+  // console.log("collectData", collectData);
 
   useEffect(() => {
     if (collectData) {
+      // setMessage(collectData?.message);
+      let title = collectData?.message;
+      console.log("raju", collectData?.message);
+      setEvents((prev) => [...prev, { start, end, title }]);
       console.log("djdfghdfg", collectData);
       setShow(false);
     }
@@ -297,17 +304,22 @@ function Typography({}) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   let titles = "abcrfgrrtgrtgghghthgghtyyhtyhtyvthtrtrtthth";
+
   const handleSelectSlot = useCallback(
     ({ start, end }) => {
+      setStart(start);
+      setEnd(end);
       console.log("dfgjdfjghdfj", start, end);
       const formattedDate = moment(start).format("DD-MM-YYYY");
       console.log("formattedDate", formattedDate);
-      const title =
-        "abcjnguehtuhte rhuerhtutyeuthuej uerhtu8erytuehtuehu ertje8t8eu4teturhru8thwthlw ";
+      // const title =
+      //   "abcjnguehtuhte rhuerhtutyeuthuej uerhtu8erytuehtuehu ertje8t8eu4teturhru8thwthlw ";
+      const title = message;
+      console.log("titleeee", title);
       setShow(true);
-      if (title) {
-        setEvents((prev) => [...prev, { start, end, title }]);
-      }
+      // if (title) {
+      //   setEvents((prev) => [...prev, { start, end, title }]);
+      // }
     },
     [setEvents]
   );
@@ -340,6 +352,14 @@ function Typography({}) {
   };
 
   const { Formik } = formik;
+
+  // useEffect(() => {
+  //   if (collectData) {
+  //     setMessage(collectData?.message);
+  //     setShow(false);
+  //     handleSelectSlot();
+  //   }
+  // }, [collectData]);
 
   // const schema = yup.object().shape({
   //   firstN: yup.string().required(),
