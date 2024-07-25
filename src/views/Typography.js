@@ -267,11 +267,37 @@ function Typography({}) {
   const [show, setShow] = useState(false);
   const [item, setitem] = useState();
   const [collectData, setCollectData] = useState();
+  console.log("collectData", collectData);
   const [message, setMessage] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   console.log("messagess", message);
   // console.log("collectData", collectData);
+
+  const handleMessage = async (values) => {
+    console.log("collectData", collectData);
+    const payload = {
+      Number: collectData?.number,
+      message: collectData?.message,
+    };
+    console.log("Success:", values, payload);
+    const response = await fetch("http://localhost:3000/api/twillio", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    // setSignupData(result);
+    console.log("********", result);
+  };
+
+  // useEffect(() => {
+  //   if (myEvents) {
+  //     handleMessage();
+  //   }
+  // }, [myEvents]);
 
   useEffect(() => {
     if (collectData) {
@@ -281,6 +307,7 @@ function Typography({}) {
       setEvents((prev) => [...prev, { start, end, title }]);
       console.log("djdfghdfg", collectData);
       setShow(false);
+      handleMessage();
     }
   }, [collectData]);
 
@@ -303,13 +330,12 @@ function Typography({}) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  let titles = "abcrfgrrtgrtgghghthgghtyyhtyhtyvthtrtrtthth";
 
   const handleSelectSlot = useCallback(
     ({ start, end }) => {
       setStart(start);
       setEnd(end);
-      console.log("dfgjdfjghdfj", start, end);
+
       const formattedDate = moment(start).format("DD-MM-YYYY");
       console.log("formattedDate", formattedDate);
       // const title =
@@ -346,10 +372,10 @@ function Typography({}) {
     };
   };
 
-  const handleSubmit = (data) => {
-    console.log("helloooo", data);
-    setShow(true);
-  };
+  // const handleSubmit = (data) => {
+  //   console.log("helloooo", data);
+  //   setShow(true);
+  // };
 
   const { Formik } = formik;
 
