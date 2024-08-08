@@ -44,7 +44,20 @@ function PhoneBook() {
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [PhoneNumber, setPhoneNumber] = React.useState();
   const [listNumber, setlistNumber] = React.useState();
+  const [condition, setCondition] = React.useState("");
+  const [arrayNumber, setArrayNumber] = React.useState([]);
   console.log("listNumber", listNumber);
+  console.log("arrayNumber", arrayNumber);
+
+  useEffect(() => {
+    if (arrayNumber.includes(condition)) {
+      let newArray = arrayNumber.filter((item) => item !== condition);
+      setArrayNumber(() => [...newArray]);
+      // arrayNumber.push()
+    } else {
+      setArrayNumber((prev) => [...prev, condition]);
+    }
+  }, [condition]);
 
   const onLogin = async () => {
     const payload = {
@@ -252,38 +265,54 @@ function PhoneBook() {
                 </div>
               </CardHeader>
               <CardBody>
-                <Alert color="info">
+                {Data?.map((item) => (
+                  <Alert
+                    color={arrayNumber?.includes(item?.id) ? "info" : "primary"}
+                  >
+                    <div
+                      style={{
+                        justifyContent: "space-between",
+                        display: "flex",
+                      }}
+                      onClick={() => setCondition(item?.id)}
+                    >
+                      <span>{item.name}</span>
+                      <span>{item.phoneNumber}</span>
+                    </div>
+                  </Alert>
+                ))}
+                {/* <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
                     <span>{listNumber?.data?.[0]?.Name}</span>
                     <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
-                </Alert>
-                <Alert color="info">
+                </Alert> */}
+                {/* <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
                     <span>{listNumber?.data?.[0]?.Name}</span>
                     <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
-                </Alert>
-                <Alert color="info">
+                </Alert> */}
+                {/* <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
                     <span>{listNumber?.data?.[0]?.Name}</span>
                     <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
-                </Alert>
-                <Alert color="info">
+                </Alert> */}
+                {/* <Alert color="info">
                   <div
                     style={{ justifyContent: "space-between", display: "flex" }}
                   >
                     <span>{listNumber?.data?.[0]?.Name}</span>
                     <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
                   </div>
-                </Alert>
+                </Alert> */}
               </CardBody>
             </Card>
           </Col>
@@ -417,3 +446,9 @@ function PhoneBook() {
 }
 
 export default PhoneBook;
+
+const Data = [
+  { id: 1, name: "ram", phoneNumber: "9824877222" },
+  { id: 2, name: "shyam", phoneNumber: "9844190183" },
+  { id: 3, name: "gita", phoneNumber: "9844190183" },
+];
