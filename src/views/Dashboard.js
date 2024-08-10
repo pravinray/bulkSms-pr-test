@@ -20,6 +20,7 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
+import { useLocation } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -50,14 +51,18 @@ import {
   chartExample4,
 } from "variables/charts.js";
 
-function Dashboard(props) {
+function Dashboard() {
   const [bigChartData, setbigChartData] = React.useState("data1");
   const setBgChartData = (name) => {
     setbigChartData(name);
   };
 
+  const location = useLocation();
+  console.log("location", location);
+  const { id, name } = location.state || {};
+  console.log("name", name);
+
   const [Item, setItem] = useState();
-  console.log("itemmm", Item?.data?.[0]);
 
   const onLogin = async () => {
     const response = await fetch("http://localhost:3000/smsData", {

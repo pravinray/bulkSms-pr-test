@@ -35,6 +35,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import * as XLXS from "xlsx";
 import * as formik from "formik";
 import * as yup from "yup";
+import { useLocation } from "react-router-dom";
 // import moment from "moment";
 
 const now = new Date();
@@ -272,6 +273,11 @@ function Typography({}) {
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   console.log("messagess", message);
+
+  const location = useLocation();
+  console.log("location", location);
+  const { id, name } = location.state || {};
+  console.log("name", name);
   // console.log("collectData", collectData);
 
   const handleMessage = async (values) => {

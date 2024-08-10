@@ -19,6 +19,7 @@ import { Formik } from "formik";
 import React, { useEffect } from "react";
 // react plugin for creating notifications over the dashboard
 import NotificationAlert from "react-notification-alert";
+import { useNavigate } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -46,8 +47,10 @@ function PhoneBook() {
   const [listNumber, setlistNumber] = React.useState();
   const [condition, setCondition] = React.useState("");
   const [arrayNumber, setArrayNumber] = React.useState([]);
+  const navigate = useNavigate();
   console.log("listNumber", listNumber);
   console.log("arrayNumber", arrayNumber);
+  const dataToPass = { id: 1, data: arrayNumber };
 
   useEffect(() => {
     if (arrayNumber.includes(condition)) {
@@ -260,7 +263,7 @@ function PhoneBook() {
                 >
                   <CardTitle tag="h4">USA</CardTitle>
                   <button type="button" onClick={toggleModalSearch}>
-                    Open Modal
+                    Add Number
                   </button>
                 </div>
               </CardHeader>
@@ -314,6 +317,25 @@ function PhoneBook() {
                   </div>
                 </Alert> */}
               </CardBody>
+
+              <div
+                style={{
+                  margin: "20px",
+                  backgroundColor: "blue",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: 10,
+                  width: 70,
+                  borderRadius: 8,
+                }}
+              >
+                <div
+                  style={{ color: "white" }}
+                  onClick={() => navigate("/typography", { state: dataToPass })}
+                >
+                  Send
+                </div>
+              </div>
             </Card>
           </Col>
           {/* <Col md="6">

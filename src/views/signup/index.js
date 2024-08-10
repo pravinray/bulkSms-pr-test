@@ -7,6 +7,7 @@ import PhoneInput from "antd-phone-input";
 import OtpInput from "react-otp-input";
 // import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // import { NavLink, Link, useLocation } from "react-router-dom";
 
 import {
@@ -40,6 +41,11 @@ export const SignUp = () => {
   console.log("loginDataSatus", loginDataSatus);
 
   console.log("otp", loginData);
+
+  const location = useLocation();
+  console.log("location", location);
+  const { id, name } = location.state || {};
+  console.log("name", name);
 
   const onFinish = async (values) => {
     console.log("collectData", collectData);

@@ -34,6 +34,7 @@ import { SignUp } from "views/signup";
 import { productApi } from "feature/apiSlice";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import Typography from "views/Typography";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -46,6 +47,7 @@ root.render(
           <Route path="/admin/*" element={<AdminLayout />} />
           <Route path="/rtl/*" element={<RTLLayout />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/typography" element={<Typography />} />
 
           <Route
             path="*"
