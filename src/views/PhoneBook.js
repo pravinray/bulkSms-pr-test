@@ -46,6 +46,7 @@ function PhoneBook() {
   const [PhoneNumber, setPhoneNumber] = React.useState();
   const [listNumber, setlistNumber] = React.useState();
   const [condition, setCondition] = React.useState("");
+  console.log("condition", condition);
   const [arrayNumber, setArrayNumber] = React.useState([]);
   const navigate = useNavigate();
   console.log("listNumber", listNumber);
@@ -270,14 +271,14 @@ function PhoneBook() {
               <CardBody>
                 {Data?.map((item) => (
                   <Alert
-                    color={arrayNumber?.includes(item?.id) ? "info" : "primary"}
+                    color={arrayNumber?.includes(item) ? "info" : "primary"}
                   >
                     <div
                       style={{
                         justifyContent: "space-between",
                         display: "flex",
                       }}
-                      onClick={() => setCondition(item?.id)}
+                      onClick={() => setCondition(item)}
                     >
                       <span>{item.name}</span>
                       <span>{item.phoneNumber}</span>
