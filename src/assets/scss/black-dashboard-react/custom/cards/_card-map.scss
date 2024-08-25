@@ -1,3 +1,50 @@
 .map {
   height: 500px;
 }
+
+.modal-dialog {
+  .modal-content {
+    background-color: #525f7f !important;
+  }
+}
+
+.col-md-10 {
+  .form-control {
+    border-color: aliceblue;
+    padding: 5px !important;
+  }
+  ::placeholder {
+    color: aliceblue;
+  }
+  // .form-label {
+  //   color: aliceblue;
+  // }
+}
+
+.card-footer {
+  input {
+    height: 54px !important;
+    width: 54px !important;
+  }
+}
+
+// .col-md-10 {
+//   .form-control {
+//     padding: 5;
+//   }
+// }
+
+.rbc-btn-group {
+  button {
+    color: white;
+  }
+}
+
+.react-datepicker-wrapper {
+  .react-datepicker__input-container {
+    input {
+      background-color: #525f7f !important;
+      color: white !important;
+    }
+  }
+}

@@ -15,7 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import { Formik } from "formik";
+import React, { useEffect, useState } from "react";
 
 // reactstrap components
 import {
@@ -33,6 +34,44 @@ import {
 } from "reactstrap";
 
 function UserProfile() {
+  const [collectData, setCollectData] = useState();
+  const [SignupData, setSignupData] = useState();
+  console.log("collectData", collectData);
+
+  const onFinish = async (values) => {
+    console.log("collectData", collectData);
+    const payload = {
+      // message: collectData?.message,
+      Number: collectData?.Number,
+      email: collectData?.email,
+      firstName: collectData?.firstName,
+      lastName: collectData?.LastName,
+      address: collectData?.address,
+      city: collectData?.city,
+      country: collectData?.country,
+      zip: collectData?.Zip,
+      aboutMe: collectData?.aboutMe,
+    };
+
+    console.log("Success:", values, payload);
+    const response = await fetch("http://localhost:3000/updateProfile", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    setSignupData(result);
+    console.log("********", result);
+  };
+
+  useEffect(() => {
+    if (collectData) {
+      onFinish();
+    }
+  }, [collectData]);
+
   return (
     <>
       <div className="content">
@@ -40,124 +79,310 @@ function UserProfile() {
           <Col md="8">
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h5 className="title">Edit Profiless</h5>
               </CardHeader>
-              <CardBody>
-                <Form>
-                  <Row>
-                    <Col className="pr-md-1" md="5">
-                      <FormGroup>
-                        <label>Company (disabled)</label>
-                        <Input
-                          defaultValue="Creative Code Inc."
-                          disabled
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="3">
-                      <FormGroup>
-                        <label>Username</label>
-                        <Input
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Input placeholder="mike@email.com" type="email" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-md-1" md="6">
-                      <FormGroup>
-                        <label>First Name</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="6">
-                      <FormGroup>
-                        <label>Last Name</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12">
-                      <FormGroup>
-                        <label>Address</label>
-                        <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-md-1" md="4">
-                      <FormGroup>
-                        <label>City</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="4">
-                      <FormGroup>
-                        <label>Country</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label>Postal Code</label>
-                        <Input placeholder="ZIP Code" type="number" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="8">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
+              {/* <CardBody>
+                <Formik
+                  // validationSchema={schema}
+                  onSubmit={(data) => setCollectData(data)}
+                  initialValues={{
+                    number: "",
+                    message: "",
+                  }}
+                >
+                  {({
+                    handleSubmit,
+                    handleChange,
+                    values,
+                    touched,
+                    errors,
+                  }) => (
+                    <Form onSubmit={handleSubmit}>
+                      <Row>
+                        <Col className="pr-md-1" md="5">
+                          <FormGroup>
+                            <label>Company (disabled)</label>
+                            <Input
+                              defaultValue="Creative Code Inc."
+                              disabled
+                              placeholder="Company"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="px-md-1" md="3">
+                          <FormGroup>
+                            <label>Username</label>
+                            <Input
+                              defaultValue="michael23"
+                              placeholder="Username"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="4">
+                          <FormGroup>
+                            <label htmlFor="exampleInputEmail1">
+                              Email address
+                            </label>
+                            <Input placeholder="mike@email.com" type="email" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label>First Name</label>
+                            <Input
+                              defaultValue="Mike"
+                              placeholder="Company"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>Last Name</label>
+                            <Input
+                              defaultValue="Andrew"
+                              placeholder="Last Name"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="12">
+                          <FormGroup>
+                            <label>Address</label>
+                            <Input
+                              defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                              placeholder="Home Address"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="4">
+                          <FormGroup>
+                            <label>City</label>
+                            <Input
+                              defaultValue="Mike"
+                              placeholder="City"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="px-md-1" md="4">
+                          <FormGroup>
+                            <label>Country</label>
+                            <Input
+                              defaultValue="Andrew"
+                              placeholder="Country"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="4">
+                          <FormGroup>
+                            <label>Postal Code</label>
+                            <Input placeholder="ZIP Code" type="number" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="8">
+                          <FormGroup>
+                            <label>About Me</label>
+                            <Input
+                              cols="80"
+                              defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
                             that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          type="textarea"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                </Form>
+                              placeholder="Here can be your description"
+                              rows="4"
+                              type="textarea"
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    </Form>
+                  )}
+                </Formik>
+              </CardBody> */}
+
+              <CardBody>
+                <Formik
+                  // validationSchema={schema}
+                  onSubmit={(data) => setCollectData(data)}
+                  initialValues={{
+                    // message: "",
+                    // Number: "",
+                    email: "",
+                    firstName: "",
+                    LastName: "",
+                    address: "",
+                    city: "",
+                    country: "",
+                    zip: "",
+                    aboutMe: "",
+                  }}
+                >
+                  {({
+                    handleSubmit,
+                    handleChange,
+                    values,
+                    touched,
+                    errors,
+                  }) => (
+                    <Form onSubmit={handleSubmit}>
+                      <Row>
+                        {/* <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label>Company (disabled)</label>
+                            <Input
+                              defaultValue="Creative Code Inc."
+                              disabled
+                              placeholder="Company"
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col> */}
+                        {/* <Col className="px-md-1" md="3">
+                          <FormGroup>
+                            <label>PhoneNumber</label>
+                            <Input
+                              name="Number"
+                              defaultValue="9824877222"
+                              placeholder="Number"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col> */}
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label htmlFor="exampleInputEmail1">
+                              Email address
+                            </label>
+                            <Input
+                              name="email"
+                              placeholder="mike@email.com"
+                              type="email"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label>First Name</label>
+                            <Input
+                              name="firstName"
+                              defaultValue="Mike"
+                              placeholder="Company"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>Last Name</label>
+                            <Input
+                              name="LastName"
+                              defaultValue="Andrew"
+                              placeholder="Last Name"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="12">
+                          <FormGroup>
+                            <label>Address</label>
+                            <Input
+                              name="address"
+                              defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                              placeholder="Home Address"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="4">
+                          <FormGroup>
+                            <label>City</label>
+                            <Input
+                              name="city"
+                              defaultValue="Mike"
+                              placeholder="City"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="px-md-1" md="4">
+                          <FormGroup>
+                            <label>Country</label>
+                            <Input
+                              name="country"
+                              defaultValue="Andrew"
+                              placeholder="Country"
+                              type="text"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="4">
+                          <FormGroup>
+                            <label>Postal Code</label>
+                            <Input
+                              placeholder="ZIP Code"
+                              name="zip"
+                              type="number"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="8">
+                          <FormGroup>
+                            <label>About Me</label>
+                            <Input
+                              cols="80"
+                              defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
+                          that two seat Lambo."
+                              placeholder="Here can be your description"
+                              rows="4"
+                              type="textarea"
+                              name="aboutMe"
+                              onChange={handleChange}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Button
+                        className="btn-fill"
+                        color="primary"
+                        type="submit"
+                      >
+                        Save
+                      </Button>
+                    </Form>
+                  )}
+                </Formik>
               </CardBody>
               <CardFooter>
-                <Button className="btn-fill" color="primary" type="submit">
+                {/* <Button className="btn-fill" color="primary" type="submit">
                   Save
-                </Button>
+                </Button> */}
               </CardFooter>
             </Card>
           </Col>

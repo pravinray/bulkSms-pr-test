@@ -29,22 +29,34 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
-
+import { SignUp } from "views/signup";
+// import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
+import { productApi } from "feature/apiSlice";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import Typography from "views/Typography";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <ThemeContextWrapper>
     <BackgroundColorWrapper>
+      {/* <Provider api={store}> */}
       <BrowserRouter>
+        {/* <Provider api={store}> */}
         <Routes>
           <Route path="/admin/*" element={<AdminLayout />} />
           <Route path="/rtl/*" element={<RTLLayout />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/typography" element={<Typography />} />
+
           <Route
             path="*"
             element={<Navigate to="/admin/dashboard" replace />}
           />
         </Routes>
+        {/* </Provider> */}
       </BrowserRouter>
+      {/* </Provider> */}
     </BackgroundColorWrapper>
   </ThemeContextWrapper>
 );

@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect, useState } from "react";
 // react plugin for creating notifications over the dashboard
 import NotificationAlert from "react-notification-alert";
 
@@ -33,6 +33,8 @@ import {
 } from "reactstrap";
 
 function Notifications() {
+  const [listNumber, setlistNumber] = useState();
+  console.log("listNumber", listNumber);
   const notificationAlertRef = React.useRef(null);
   const notify = (place) => {
     var color = Math.floor(Math.random() * 5 + 1);
@@ -73,6 +75,27 @@ function Notifications() {
     };
     notificationAlertRef.current.notificationAlert(options);
   };
+
+  const handleContact = async () => {
+    const response = await fetch("http://localhost:3000/listCountryNumber", {
+      method: "GET",
+      // body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log("result", result);
+    setlistNumber(result);
+    // setLoginDataSatus(result);
+    // setSignupData(result);
+    // console.log("********", result);
+  };
+
+  useEffect(() => {
+    handleContact();
+  }, []);
+
   return (
     <>
       <div className="content">
@@ -83,73 +106,86 @@ function Notifications() {
           <Col md="6">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Notifications Style</CardTitle>
+                <CardTitle tag="h4">USA</CardTitle>
               </CardHeader>
               <CardBody>
                 <Alert color="info">
-                  <span>This is a plain notification</span>
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                    <span>BUY</span>
+                  </div>
                 </Alert>
-                <UncontrolledAlert color="info">
-                  <span>This is a notification with close button.</span>
-                </UncontrolledAlert>
-                <UncontrolledAlert className="alert-with-icon" color="info">
-                  <span className="tim-icons icon-bell-55" data-notify="icon" />
-                  <span data-notify="message">
-                    This is a notification with close button and icon.
-                  </span>
-                </UncontrolledAlert>
-                <UncontrolledAlert className="alert-with-icon" color="info">
-                  <span className="tim-icons icon-bell-55" data-notify="icon" />
-                  <span data-notify="message">
-                    This is a notification with close button and icon and have
-                    many lines. You can see that the icon and the close button
-                    are always vertically aligned. This is a beautiful
-                    notification. So you don't have to worry about the style.
-                  </span>
-                </UncontrolledAlert>
+                <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                    <span>BUY</span>
+                  </div>
+                </Alert>
+                <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[0]?.PhoneNumber}</span>
+                    <span>BUY</span>
+                  </div>
+                </Alert>
+                <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>+918983483445</span>
+                    <span>BUY</span>
+                  </div>
+                </Alert>
               </CardBody>
             </Card>
           </Col>
           <Col md="6">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Notification states</CardTitle>
+                <CardTitle tag="h4">CANADA</CardTitle>
               </CardHeader>
               <CardBody>
-                <UncontrolledAlert color="primary">
-                  <span>
-                    <b>Primary - </b>
-                    This is a regular notification made with ".alert-primary"
-                  </span>
-                </UncontrolledAlert>
-                <UncontrolledAlert color="info">
-                  <span>
-                    <b>Info - </b>
-                    This is a regular notification made with ".alert-info"
-                  </span>
-                </UncontrolledAlert>
-                <UncontrolledAlert color="success">
-                  <span>
-                    <b>Success - </b>
-                    This is a regular notification made with ".alert-success"
-                  </span>
-                </UncontrolledAlert>
-                <UncontrolledAlert color="warning">
-                  <span>
-                    <b>Warning - </b>
-                    This is a regular notification made with ".alert-warning"
-                  </span>
-                </UncontrolledAlert>
-                <UncontrolledAlert color="danger">
-                  <span>
-                    <b>Danger - </b>
-                    This is a regular notification made with ".alert-danger"
-                  </span>
-                </UncontrolledAlert>
+                <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
+                    <span>BUY</span>
+                  </div>
+                </Alert>
+                <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
+                    <span>BUY</span>
+                  </div>
+                </Alert>
+                <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
+                    <span>BUY</span>
+                  </div>
+                </Alert>
+                <Alert color="info">
+                  <div
+                    style={{ justifyContent: "space-between", display: "flex" }}
+                  >
+                    <span>{listNumber?.data?.[1]?.PhoneNumber}</span>
+                    <span>BUY</span>
+                  </div>
+                </Alert>
               </CardBody>
             </Card>
           </Col>
-          <Col md="12">
+          {/* <Col md="12">
             <Card>
               <CardBody>
                 <div className="places-buttons">
@@ -230,7 +266,7 @@ function Notifications() {
                 </div>
               </CardBody>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </>

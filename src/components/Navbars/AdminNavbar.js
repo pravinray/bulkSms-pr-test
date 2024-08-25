@@ -101,7 +101,7 @@ function AdminNavbar(props) {
               <InputGroup className="search-bar">
                 <Button color="link" onClick={toggleModalSearch}>
                   <i className="tim-icons icon-zoom-split" />
-                  <span className="d-lg-none d-md-block">Search</span>
+                  <span className="d-lg-none d-md-block">Searchhh</span>
                 </Button>
               </InputGroup>
               <UncontrolledDropdown nav>
@@ -112,7 +112,7 @@ function AdminNavbar(props) {
                   nav
                 >
                   <div className="notification d-none d-lg-block d-xl-block" />
-                  <i className="tim-icons icon-sound-wave" />
+                  {/* <i className="tim-icons icon-sound-wave" /> */}
                   <p className="d-lg-none">Notifications</p>
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
@@ -165,7 +165,7 @@ function AdminNavbar(props) {
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item">Log out</DropdownItem>
+                    <DropdownItem className="nav-item">Log outttt</DropdownItem>
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>
