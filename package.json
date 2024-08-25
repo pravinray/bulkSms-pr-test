@@ -57,6 +57,7 @@
     "reactstrap": "8.10.1"
   },
   "devDependencies": {
+    "ajv": "^7.2.4",
     "typescript": "5.0.4"
   },
   "overrides": {
